@@ -1,0 +1,71 @@
+POST localhost:8080/valid/test-a
+Content-Type: application/json
+Cache-Control: no-cache
+Accept: */*
+
+{
+  "name": "小明",
+  "size": "25",
+  "gender": "-FEMALE",
+  "email": "yao@adbyte.cn",
+  "date": "2019-02-20 14:57:00",
+  "birthday": "1990-09-09",
+  "userList": [
+    {
+      "name": "adam",
+      "size": "20",
+      "gender": "MALE",
+      "password": "abcdef"
+    }
+  ]
+}
+
+###
+
+POST localhost:8080/valid/test-b
+Content-Type: application/json
+Cache-Control: no-cache
+Accept: */*
+
+{
+  "name": "adam",
+  "size": "25",
+  "password": "abcdef"
+}
+
+###
+
+POST localhost:8080/valid/test-c
+Content-Type:application/x-www-form-urlencoded
+Cache-Control: no-cache
+Accept: */*
+
+&name=
+&size=151
+&password=abc0defg
+
+###
+
+POST localhost:8080/valid/test-d
+Content-Type: application/json
+Cache-Control: no-cache
+Accept: */*
+
+{
+  "name": "小明",
+  "size": "25",
+  "gender": "-FEMALE",
+  "email": "yao@adbyte.cn",
+  "date": "2019-02-20 14:57:00",
+  "birthday": "1990-09-09",
+  "userList": [
+    {
+      "name": "adam",
+      "size": "20",
+      "gender": "MALE",
+      "password": "abcdef"
+    }
+  ]
+}
+
+###
