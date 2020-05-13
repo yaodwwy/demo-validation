@@ -31,7 +31,7 @@ public class BindExceptionHandler {
 
         });
         // 生成返回结果
-        errorResult.setCode(400);
+        errorResult.setCode(4000);
         return errorResult;
     }
 

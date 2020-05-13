@@ -23,57 +23,51 @@ public class RestControllerApi {
         this.service = service;
     }
 
-    @PostMapping("/test-a")
-    public Res<Foo> checkPojo(@RequestBody @Valid Foo foo, BindingResult results) {
-        String defaultMessage = null;
+    /**
+     * http状态码会是200
+     */
+    @PostMapping("http-status-200")
+    public Res<Foo> returnWithHttpStatus200(@RequestBody @Valid Foo foo, BindingResult results) {
+        String defaultMessage = "通过";
+        String field = "";
         if (results.hasErrors()) {
+            field = " at field: " + Objects.requireNonNull(results.getFieldError()).getField();
             defaultMessage = Objects.requireNonNull(results.getFieldError()).getDefaultMessage();
         }
-        Res<Foo> queryResult = new Res<>();
-        queryResult.setCode(200);
-        queryResult.setMessage(defaultMessage);
-        queryResult.setData(foo);
-        return queryResult;
+        return new Res<Foo>().setMessage("验证结果 " + defaultMessage + field)
+                .setData(foo);
     }
 
-    @PostMapping("/test-b")
-    public Res<Foo> checkQuery(@RequestBody @Validated Foo user, BindingResult result) {
-        StringBuilder sBuilder = new StringBuilder();
+    /**
+     * http状态码会是400
+     */
+    @PostMapping("http-status-400")
+    public Res<Foo> returnWithHttpStatus400(@RequestBody @Validated Foo foo, BindingResult result) {
+        StringBuilder defaultMessage = new StringBuilder();
         Res<Foo> queryResult = new Res<>();
         if (result.hasErrors()) {
             List<ObjectError> list = result.getAllErrors();
-            for (ObjectError error : list) {
-                log.info(error.getCode() + "---" + "---" + error.getDefaultMessage());
-                sBuilder.append(error.getDefaultMessage());
-                sBuilder.append("\n");
-            }
-            queryResult.setCode(400);
+            list.forEach(error -> {
+                defaultMessage.append(error.getCode() + error.getDefaultMessage());
+            });
+            queryResult.setCode(4000);
         }
-        queryResult.setMessage(sBuilder.toString());
-        queryResult.setData(user);
-        return queryResult;
+        return queryResult.setMessage(defaultMessage.toString()).setData(foo);
     }
 
     /**
      * 服务层验证测试
-     *
-     * @param user
-     * @return
      */
-    @PostMapping("/test-c")
-    public Res<Foo> checkService(Foo user) {
-        return service.validate(user);
+    @PostMapping("service-level")
+    public Res<Foo> validateServiceImpl(Foo foo) {
+        return service.validate(foo);
     }
 
     /**
      * 控制层验证全局异常捕获
-     *
-     * @param model
-     * @param result
-     * @return
      */
-    @PostMapping("/test-d")
-    public Res<Foo> checkHandler(@RequestBody @Valid Foo model, BindingResult result) throws BindException {
+    @PostMapping("direct-throw-exception")
+    public Res<Foo> controllerDirectThrowException(@RequestBody @Valid Foo model, BindingResult result) throws BindException {
         Res<Foo> queryResult = new Res<>();
         queryResult.setData(model);
         if (result.hasErrors()) {

@@ -1,65 +1,76 @@
-POST localhost:8080/valid/test-a
+POST localhost:8080/valid/http-status-200
 Content-Type: application/json
 Cache-Control: no-cache
 Accept: */*
 
 {
+  "id": 12,
   "name": "小明",
+  "password": "testte",
   "size": "25",
-  "gender": "-FEMALE",
+  "gender": "FEMALE",
+  "cellphone": "13345645645",
   "email": "yao@adbyte.cn",
   "date": "2019-02-20 14:57:00",
   "birthday": "1990-09-09",
-  "userList": [
+  "bars": [
     {
-      "name": "adam",
-      "size": "20",
-      "gender": "MALE",
-      "password": "abcdef"
+      "id": "1",
+      "name": "adam"
     }
   ]
 }
 
 ###
 
-POST localhost:8080/valid/test-b
+POST localhost:8080/valid/http-status-400
 Content-Type: application/json
 Cache-Control: no-cache
 Accept: */*
 
 {
+  "id": 1,
   "name": "adam",
-  "size": "25",
-  "password": "abcdef"
+  "size": 25,
+  "password": "abcdef",
+  "email": "9@q.com",
+  "birthday": "2000-01-01",
+  "date": "2000-01-01 00:00:00",
+  "bars": [],
+  "cellphone": "11111110111",
+  "gender": "MALE"
 }
 
 ###
 
-POST localhost:8080/valid/test-c
+POST localhost:8080/valid/service-level
 Content-Type:application/x-www-form-urlencoded
 Cache-Control: no-cache
 Accept: */*
 
-&name=
-&size=151
-&password=abc0defg
+&id=1&name=张小三&size=150
+&password=abcdedd&bars[0].id=1&bars[0].name=bar
+&date=2010-01-01 11:11:11&birthday=2010-01-01&
 
 ###
 
-POST localhost:8080/valid/test-d
+POST localhost:8080/valid/direct-throw-exception
 Content-Type: application/json
 Cache-Control: no-cache
 Accept: */*
 
 {
+  "id": 1,
   "name": "小明",
+  "password": "abcdef",
   "size": "25",
-  "gender": "-FEMALE",
+  "gender": "FEMALE",
   "email": "yao@adbyte.cn",
   "date": "2019-02-20 14:57:00",
   "birthday": "1990-09-09",
-  "userList": [
+  "bars": [
     {
+      "id": 1,
       "name": "adam",
       "size": "20",
       "gender": "MALE",

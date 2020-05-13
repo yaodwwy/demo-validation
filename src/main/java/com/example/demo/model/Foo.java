@@ -2,9 +2,12 @@ package com.example.demo.model;
 
 import com.example.demo.customize.CellPhone;
 import com.example.demo.customize.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -34,11 +37,12 @@ public class Foo implements Serializable {
     @Email
     private String email;
 
-    @NotNull
     @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     @NotNull(message = "日期不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     /**

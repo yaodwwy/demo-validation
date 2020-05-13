@@ -13,6 +13,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CellPhone {
+    /**
+     * 也可以使用 {foo.cellphone}
+     */
     String message() default "不是正确的手机号码";
     Class<?>[] groups() default { };
 

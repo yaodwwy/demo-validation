@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Gender.List.class)
 public @interface Gender {
-    String message() default "{user.gender}";
+    String message() default "{foo.gender}";
 
     Class<?>[] groups() default {};
 

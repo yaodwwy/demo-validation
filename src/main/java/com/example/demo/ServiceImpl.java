@@ -21,11 +21,13 @@ public class ServiceImpl {
         StringBuilder message = new StringBuilder();
 
         Set<ConstraintViolation<Foo>> validate = validator.validate(foo);
-        for (ConstraintViolation<Foo> cv : validate) {
-
-            message.append("{" + cv.getMessage() + "}");
+        if (!validate.isEmpty()) {
+            result.setCode(4000);
         }
-        result.setData(foo);
+        for (ConstraintViolation<Foo> cv : validate) {
+            message.append("{ 字段名：" + cv.getPropertyPath() + " 的值：" + cv.getInvalidValue() + ": " + cv.getMessage() + "},");
+        }
+        result.setMessage(message.toString()).setData(foo);
         return result;
     }
 }
