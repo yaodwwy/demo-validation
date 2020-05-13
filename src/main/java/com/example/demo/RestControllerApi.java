@@ -1,12 +1,17 @@
 package com.example.demo;
 
+import com.example.demo.model.Bar;
 import com.example.demo.model.Foo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,6 +27,19 @@ public class RestControllerApi {
     public RestControllerApi(ServiceImpl service) {
         this.service = service;
     }
+
+    /**
+     * 第一个验证用例
+     */
+    @PostMapping("bar")
+    public String bar(@RequestBody @Valid Bar bar, BindingResult results) {
+        if (results.hasErrors()) {
+            FieldError error = results.getFieldError();
+            return error.getField() + " " + error.getDefaultMessage();
+        }
+        return "hi! " + bar.getName();
+    }
+
 
     /**
      * http状态码会是200

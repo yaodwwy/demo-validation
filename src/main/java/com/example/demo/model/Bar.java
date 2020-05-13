@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 @Data
 public class Bar {
 
-    @NotNull(message = "id不能为空")
+    @NotNull
     private Integer id;
 
-    @NotBlank(message = "name不能为空")
+    @NotBlank
     @Size(min = 2, max = 30)
     private String name;
 }

@@ -1,26 +1,10 @@
-POST localhost:8080/valid/http-status-200
+POST localhost:8080/valid/bar
 Content-Type: application/json
-Cache-Control: no-cache
-Accept: */*
 
 {
-  "id": 12,
-  "name": "小明",
-  "password": "testte",
-  "size": "25",
-  "gender": "FEMALE",
-  "cellphone": "13345645645",
-  "email": "yao@adbyte.cn",
-  "date": "2019-02-20 14:57:00",
-  "birthday": "1990-09-09",
-  "bars": [
-    {
-      "id": "1",
-      "name": "adam"
-    }
-  ]
+  "id": null,
+  "name": null
 }
-
 ###
 
 POST localhost:8080/valid/http-status-400
